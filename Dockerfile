@@ -1,12 +1,19 @@
-FROM python:3.10.8-slim-buster
+FROM python:3.10-slim-bookworm
 
-RUN apt update && apt upgrade -y
-RUN apt install git -y
-COPY requirements.txt /requirements.txt
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-RUN cd /
-RUN pip3 install -U pip && pip3 install -U -r requirements.txt
-RUN mkdir /VJ-Forward-Bot
+RUN apt update \
+ && apt install -y --no-install-recommends git \
+ && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /VJ-Forward-Bot
-COPY . /VJ-Forward-Bot
-CMD gunicorn app:app & python3 main.py
+
+COPY requirements.txt .
+
+RUN pip install --upgrade pip \
+ && pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD sh -c "gunicorn app:app & python3 main.py"
