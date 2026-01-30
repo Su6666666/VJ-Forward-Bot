@@ -12,6 +12,12 @@ class Config:
     DATABASE_URI = environ.get("DATABASE_URI", "mongodb+srv://SGBACKUP:SGBACKUP@cluster0.173ksrb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
     DATABASE_NAME = environ.get("DATABASE_NAME", "vj-forward-bot")
     BOT_OWNER = int(environ.get("BOT_OWNER", "919169586"))
+    
+    # Force Subscribe Logic (Only Added These)
+    # আপনার চ্যানেলের আইডি এখানে দিন (যেমন: -100xxxxxxxx)
+    AUTH_CHANNEL = int(environ.get("AUTH_CHANNEL", "")) 
+    # চ্যানেলের ইনভাইট লিংক (অপশনাল, বটের মেসেজে দেখানোর জন্য)
+    REQ_CHANNEL = environ.get("REQ_CHANNEL", "") 
 
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
@@ -27,4 +33,3 @@ class temp(object):
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
-
