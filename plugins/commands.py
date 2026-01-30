@@ -57,7 +57,7 @@ async def start(client, message):
             InlineKeyboardButton("📢 ᴊᴏɪɴ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ", url=Config.REQ_CHANNEL)
         ]]
         return await message.reply_text(
-            text="<b>সরি বন্ধু, আমার সার্ভিসগুলো ব্যবহার করতে হলে আপনাকে অবশ্যই আমাদের আপডেট চ্যানেলে জয়েন করতে হবে।</b>",
+            text="<b>Sorry Friend 😊, To Use My Services You Must Join Our Update Channel 📢</b>",
             reply_markup=InlineKeyboardMarkup(buttons)
         )
 
