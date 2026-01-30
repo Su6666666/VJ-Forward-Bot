@@ -40,7 +40,7 @@ async def run(bot, message):
             InlineKeyboardButton("📢 ᴊᴏɪɴ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ", url=Config.REQ_CHANNEL)
         ]]
         return await message.reply_text(
-            text="<b>দুঃখিত, এই কমান্ডটি ব্যবহার করতে আপনাকে আমাদের চ্যানেলে জয়েন থাকতে হবে।</b>",
+            text="<b>Sorry 😔, you must be a member of our channel to use this command.</b>",
             reply_markup=InlineKeyboardMarkup(buttons)
         )
 
