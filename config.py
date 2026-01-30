@@ -15,9 +15,9 @@ class Config:
     
     # Force Subscribe Logic (Only Added These)
     # আপনার চ্যানেলের আইডি এখানে দিন (যেমন: -100xxxxxxxx)
-    AUTH_CHANNEL = int(environ.get("AUTH_CHANNEL", "")) 
+    AUTH_CHANNEL = int(environ.get("AUTH_CHANNEL", "-1001877309572")) 
     # চ্যানেলের ইনভাইট লিংক (অপশনাল, বটের মেসেজে দেখানোর জন্য)
-    REQ_CHANNEL = environ.get("REQ_CHANNEL", "") 
+    REQ_CHANNEL = environ.get("REQ_CHANNEL", "https://t.me/sgbackup") 
 
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
@@ -33,3 +33,4 @@ class temp(object):
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
+
