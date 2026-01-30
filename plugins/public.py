@@ -6,13 +6,27 @@ import re
 import asyncio 
 from .utils import STS
 from database import Db, db
-from config import temp 
+from config import Config, temp 
 from script import Script
 from pyrogram import Client, filters, enums
-from pyrogram.errors import FloodWait 
+from pyrogram.errors import FloodWait, UserNotParticipant
 from pyrogram.errors.exceptions.not_acceptable_406 import ChannelPrivate as PrivateChat
 from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, ChatAdminRequired, UsernameInvalid, UsernameNotModified, ChannelPrivate
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
+
+# Force Subscribe Check Function
+async def is_subscribed(client, message):
+    if not Config.AUTH_CHANNEL:
+        return True
+    try:
+        user = await client.get_chat_member(Config.AUTH_CHANNEL, message.from_user.id)
+        if user.status == "kicked":
+            return False
+    except UserNotParticipant:
+        return False
+    except Exception:
+        return True
+    return True
 
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
@@ -20,6 +34,16 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQ
 
 @Client.on_message(filters.private & filters.command(["forward"]))
 async def run(bot, message):
+    # Force Subscribe Check Added
+    if not await is_subscribed(bot, message):
+        buttons = [[
+            InlineKeyboardButton("📢 ᴊᴏɪɴ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ", url=Config.REQ_CHANNEL)
+        ]]
+        return await message.reply_text(
+            text="<b>দুঃখিত, এই কমান্ডটি ব্যবহার করতে আপনাকে আমাদের চ্যানেলে জয়েন থাকতে হবে।</b>",
+            reply_markup=InlineKeyboardMarkup(buttons)
+        )
+
     buttons = []
     btn_data = {}
     user_id = message.from_user.id
@@ -69,8 +93,6 @@ async def run(bot, message):
         return 
     try:
         title = (await bot.get_chat(chat_id)).title
-  #  except ChannelInvalid:
-        #return await fromid.reply("**Given source chat is copyrighted channel/group. you can't forward messages from there**")
     except (PrivateChat, ChannelPrivate, ChannelInvalid):
         title = "private" if fromid.text else fromid.forward_from_chat.title
     except (UsernameInvalid, UsernameNotModified):
@@ -93,7 +115,3 @@ async def run(bot, message):
         reply_markup=reply_markup
     )
     STS(forward_id).store(chat_id, toid, int(skipno.text), int(last_msg_id))
-
-# Don't Remove Credit Tg - @VJ_Botz
-# Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
-# Ask Doubt on telegram @KingVJ01
